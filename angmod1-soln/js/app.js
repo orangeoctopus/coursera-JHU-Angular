@@ -7,7 +7,7 @@ angular.module('LunchCheck',[])
 LunchCheckController.$inject = ['$scope'];
 function LunchCheckController($scope) {
 	$scope.checkTouch = function () {
-	if($scope.foodItems.length == 0) {
+	if($scope.foodItems.length == 0 ) {
 		$scope.checkMessage = "Please enter data first";
 	   } else {
 		var numberOfItems = getCount($scope.foodItems);
@@ -21,9 +21,7 @@ function LunchCheckController($scope) {
 
 function getCount(foodList) {
 	
-	var splitList = foodList.split(foodList, ',');
-	console.log(foodList);
-	console.log(splitList);
+	var splitList = foodList.split(',');
 	return splitList.length;
 }
 
