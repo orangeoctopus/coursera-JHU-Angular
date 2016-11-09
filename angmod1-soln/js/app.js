@@ -7,11 +7,14 @@ angular.module('LunchCheck',[])
 LunchCheckController.$inject = ['$scope'];
 function LunchCheckController($scope) {
 	$scope.checkTouch = function () {
-	if($scope.foodItems.length == 0 ) {
-		$scope.checkMessage = "Please enter data first";
-	   } else {
+	if($scope.foodItems) {
+		$scope.msgStyle={"color":"green", "border-style":"solid","border-color":"green", "display": "inline"}
 		var numberOfItems = getCount($scope.foodItems);
 	   $scope.checkMessage = getMessage(numberOfItems);
+		
+	   } else {
+		$scope.msgStyle={"color":"red", "border-style":"solid","border-color":"red", "display": "inline"}
+		$scope.checkMessage = "Please enter data first";
 	}
 };
 
@@ -27,6 +30,7 @@ function getCount(foodList) {
 
 function getMessage(number) {
 	if (number <= 3) {
+
        return "Enjoy!";
 	} else {
 	   return "Too Much!";
