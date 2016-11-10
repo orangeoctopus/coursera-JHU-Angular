@@ -24,7 +24,8 @@ function LunchCheckController($scope) {
 
 function getCount(foodList) {
 	
-	var splitList = foodList.split(',');
+	var splitList = foodList.split(',').filter((v=>v.trim()!=''));
+
 	return splitList.length;
 }
 
