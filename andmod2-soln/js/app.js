@@ -77,7 +77,7 @@ function ShoppingListCheckOffService() {
 			break;
 		}
     return {
-    	name: "",
+    	name: "Error",
     	quantity: "5"
   	}
   };
