@@ -4,17 +4,25 @@
 angular.module('NarrowItDownApp',[])
 .controller('NarrowItDownController', NarrowItDownController)
 .service('MenuSearchService',MenuSearchService)
-.constant('ApiBasePath', "http://davids-restaurant.herokuapp.com");
-.directive('foundItems', FoundItems)
+.constant('ApiBasePath', "http://davids-restaurant.herokuapp.com")
+.directive('foundItems', FoundItemsDirective);
 
-function FoundItems() {
+function FoundItemsDirective() {
 	var ddo = {
-		templateUrl: 'foundItems.html',
+		templateUrl: '../foundItems.html',
 		scope: {
-			foundItems: '<',
-			onRemove: '='
-		}
-	}
+			found: '<',
+			onRemove: '&'
+		},
+		controller: NarrowItDownDirectiveController,
+		controllerAs: 'narrowMenu',
+		bindToController: true
+	};
+	return ddo;
+}
+
+function NarrowItDownDirectiveController() {
+	var narrowMenu = this;
 }
 
 NarrowItDownController.$inject = ['MenuSearchService'];
@@ -26,7 +34,7 @@ function NarrowItDownController(MenuSearchService) {
 		// body...
 		console.log("searched term:" + narrowMenu.searchTerm);
 		
-		narrowMenu.items = MenuSearchService.getMatchedMenuItems(searchTerm);
+		narrowMenu.found = MenuSearchService.getMatchedMenuItems(searchTerm);
 
 		
 		
@@ -40,6 +48,7 @@ MenuSearchService.$inject = ['$http', 'ApiBasePath'];
 function MenuSearchService($http, ApiBasePath) {
 	var service = this;
 
+	
 
 	//method will be responsible for reaching out to the server (using the 
 	//$http service) to retrieve the list of all the menu items. Once it 
@@ -56,8 +65,15 @@ function MenuSearchService($http, ApiBasePath) {
     			var menuItem = response.data.menu_items[i];
 
     			if(menuItem.description.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
-    				foundItems.push(menuItem);
-    				console.log(menuItem);
+    				var item = {
+        			name: menuItem.name,
+        			short_name: menuItem.short_name,
+        			description: menuItem.description
+   			   };
+   			   foundItems.push(item);
+    				console.log(item);
+
+    				
     			}
     		}
     		    // return processed items
@@ -82,6 +98,13 @@ function getMenuItems() {
 
     return response;
   };
+
+service.removeItem = function (itemIndex) {
+    items.splice(itemIndex, 1);
+  };
+
 }
+
+
 
 })();
