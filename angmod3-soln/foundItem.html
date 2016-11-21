@@ -1,0 +1,7 @@
+<h3>{{ title }}</h3>
+<ol>
+  <li ng-repeat="item in narrowMenu.items">
+    {{ item.quantity }} of {{ item.name }}
+    <button ng-click="list.removeItem($index);">Don't want this one!</button>
+  </li>
+</ol>
