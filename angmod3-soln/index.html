@@ -18,10 +18,12 @@
     <div class="form-group narrow-button">
       <button class="btn btn-primary" ng-click="narrowMenu.searchMenu(narrowMenu.searchTerm)">Narrow It Down For Me!</button>
     </div>
+    <h3 ng-if="narrowMenu.isEmpty()">Nothing Found</h3>
 
     <!-- found-items should be implemented as a component -->
-    <found-items ng-if="narrowMenu.found.length != 0" title="{{narrowMenu.title}}" found="narrowMenu.found" on-remove="narrowMenu.removeItem(index)"></found-items>
+    <found-items ng-if="!narrowMenu.found.length == 0" title="{{narrowMenu.title}}" found="narrowMenu.found" on-remove="narrowMenu.removeItem(index)"></found-items>
   </div>
+
 
 </body>
 </html>

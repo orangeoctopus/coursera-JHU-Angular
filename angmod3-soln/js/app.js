@@ -24,6 +24,11 @@ function FoundItemsDirective() {
 
 function NarrowItDownDirectiveController() {
 	var narrowMenu = this;
+
+	narrowMenu.isEmpty = function() {
+		console.log(narrowMenu.found.length === 0);
+		return narrowMenu.found.length === 0;
+	}
 }
 
 NarrowItDownController.$inject = ['MenuSearchService'];
@@ -37,19 +42,18 @@ function NarrowItDownController(MenuSearchService) {
 
 	narrowMenu.searchMenu = function (searchTerm) {
 	// body...
-	console.log("searched term:" + narrowMenu.searchTerm);
+	//console.log("searched term:" + narrowMenu.searchTerm);
 	var promise = MenuSearchService.getMatchedMenuItems(searchTerm);
-	promise.then(function(result) {
+	if(promise != null) {
+		promise.then(function(result) {
 		narrowMenu.found = result;
 		narrowMenu.title = origTitle + narrowMenu.found.length;
-		console.log(result);
+		//console.log(result);
 	}).catch(function (error) {
-    console.log("Something went terribly wrong.");
+    console.log("Something really weird has happened");
   });
-
-
+	}
 	
-
 	
 		
 	};
@@ -58,6 +62,7 @@ function NarrowItDownController(MenuSearchService) {
      narrowMenu.found.splice(itemIndex, 1);
      narrowMenu.title = origTitle + narrowMenu.found.length;
   };
+
 
 
 }
@@ -75,13 +80,17 @@ function MenuSearchService($http, ApiBasePath) {
 	//compiled, it should return that list (wrapped in a promise).
 	service.getMatchedMenuItems = function (searchTerm) {
 		
+		if(!searchTerm) {
+			console.log("search term empty");
+			return null;
+		}
 	return $http({
       method: "GET",
       url: (ApiBasePath + "menu_items.json")
     }).then(function (response) {
     // process result and only keep items that match
     var foundItems= [];
-    console.log("response from http"+response.data);
+    //console.log("response from http"+response.data);
       	 
 		 for (var i = 0; i < response.data.menu_items.length; i++) {
     			var menuItem = response.data.menu_items[i];
@@ -99,7 +108,7 @@ function MenuSearchService($http, ApiBasePath) {
     			}
     		}
     		    // return processed items
-    		  console.log("found items" +foundItems);
+    		  //console.log("found items" +foundItems);
     		return foundItems;
     		
 
@@ -107,6 +116,8 @@ function MenuSearchService($http, ApiBasePath) {
     	.catch(function (error) {
     	  console.log(error);
     	})
+
+
 
 };
 
