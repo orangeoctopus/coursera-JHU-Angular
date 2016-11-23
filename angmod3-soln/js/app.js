@@ -4,12 +4,12 @@
 angular.module('NarrowItDownApp',[])
 .controller('NarrowItDownController', NarrowItDownController)
 .service('MenuSearchService',MenuSearchService)
-.constant('ApiBasePath', "http://davids-restaurant.herokuapp.com")
+.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com")
 .directive('foundItems', FoundItemsDirective);
 
 function FoundItemsDirective() {
 	var ddo = {
-		templateUrl: 'foundItems.html',
+		templateUrl: '/foundItems.html',
 		scope: {
 			found: '<',
 			onRemove: '&',
