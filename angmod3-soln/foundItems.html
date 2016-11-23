@@ -1,7 +1,16 @@
-<h3>{{ title }}</h3>
-<ol>
-  <li ng-repeat="foundItem in narrowMenu.found track by $index">
-    {{ foundItem.name }} short {{ foundItem.short_name}} desc{{foundItem.description}}
-    <button ng-click="narrowMenu.onRemove({index: $index});">Don't want this one!</button>
-  </li>
-</ol>
+<h3>{{ narrowMenu.foundTitle }} </h3>
+<table>
+<tr>
+	<th>Menu Item Name</th>
+	<th>Code</th>
+	<th>Description</th>
+	<th></th>
+</tr>
+	<tr ng-repeat="foundItem in narrowMenu.found">
+		<td>{{ foundItem.name }}</td>
+		<td>{{ foundItem.short_name}}</td>
+		<td>{{foundItem.description}}</td>
+ 		<td><button ng-click="narrowMenu.onRemove({index: $index});">Don't want this one!</button></td>
+	</tr>
+</table>
+
