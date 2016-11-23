@@ -75,7 +75,7 @@ function MenuSearchService($http, ApiBasePath,$q) {
 	//compiled, it should return that list (wrapped in a promise).
 	service.getMatchedMenuItems = function (searchTerm) {
 		
-	return $http({
+	return $https({
       method: "GET",
       url: (ApiBasePath + "/menu_items.json")
     }).then(function (response) {
