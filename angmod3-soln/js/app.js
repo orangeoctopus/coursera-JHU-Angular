@@ -9,7 +9,7 @@ angular.module('NarrowItDownApp',[])
 
 function FoundItemsDirective() {
 	var ddo = {
-		templateUrl: '../foundItems.html',
+		templateUrl: 'foundItems.html',
 		scope: {
 			found: '<',
 			onRemove: '&',
@@ -75,7 +75,7 @@ function MenuSearchService($http, ApiBasePath,$q) {
 	//compiled, it should return that list (wrapped in a promise).
 	service.getMatchedMenuItems = function (searchTerm) {
 		
-	return $https({
+	return $http({
       method: "GET",
       url: (ApiBasePath + "/menu_items.json")
     }).then(function (response) {
@@ -109,11 +109,6 @@ function MenuSearchService($http, ApiBasePath,$q) {
     	})
 
 };
-
-
-service.removeItem = function (itemIndex) {
-    items.splice(itemIndex, 1);
-  };
 
 
 }
