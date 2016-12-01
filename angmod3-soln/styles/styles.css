@@ -57,6 +57,11 @@ found-items {
   clear: left;
 }
 
+.floatclear {
+  float:left;
+  clear: left;
+}
+
 table, th , td  {
   border: 1px solid grey;
   border-collapse: collapse;

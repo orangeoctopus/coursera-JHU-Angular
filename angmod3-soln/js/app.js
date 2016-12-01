@@ -26,8 +26,9 @@ function NarrowItDownDirectiveController() {
 	var narrowMenu = this;
 
 	narrowMenu.isEmpty = function() {
-		console.log(narrowMenu.found.length === 0);
-		return narrowMenu.found.length === 0;
+		console.log(narrowMenu.found.length == 0);
+		console.log(narrowMenu.found);
+		return narrowMenu.found.length == 0;
 	}
 }
 
@@ -79,32 +80,33 @@ function MenuSearchService($http, ApiBasePath) {
 	//ones whose description matches the searchTerm. Once a list of found items is 
 	//compiled, it should return that list (wrapped in a promise).
 	service.getMatchedMenuItems = function (searchTerm) {
-		
-		if(!searchTerm) {
-			console.log("search term empty");
-			return null;
-		}
+		var foundItems= [];
+
 	return $http({
       method: "GET",
       url: (ApiBasePath + "menu_items.json")
     }).then(function (response) {
     // process result and only keep items that match
-    var foundItems= [];
+    
     //console.log("response from http"+response.data);
       	 
 		 for (var i = 0; i < response.data.menu_items.length; i++) {
     			var menuItem = response.data.menu_items[i];
 
-    			if(menuItem.description.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
+    			if(searchTerm) {
+    				if(menuItem.description.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
     				var item = {
         			name: menuItem.name,
         			short_name: menuItem.short_name,
         			description: menuItem.description
-   			   };
-   			   foundItems.push(item);
+   			   		};
+   			   			foundItems.push(item);
 
+    			}
 
-    				
+    			
+    			}else {
+    				console.log("search term empty");
     			}
     		}
     		    // return processed items

@@ -1,3 +1,9 @@
+
+<h3 ng-if="narrowMenu.isEmpty() ">Nothing Found</h3>
+
+<div>
+
+<div ng-if="!narrowMenu.isEmpty()">
 <h3>{{ narrowMenu.foundTitle }} </h3>
 <table>
 <tr>
@@ -13,4 +19,4 @@
  		<td><button ng-click="narrowMenu.onRemove({index: $index});">Don't want this one!</button></td>
 	</tr>
 </table>
-
+</div>
